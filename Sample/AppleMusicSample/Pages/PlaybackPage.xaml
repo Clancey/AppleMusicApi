@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="AppleMusicSample.Pages.PlaybackPage">
+    <StackLayout>
+        <Image Source="{Binding CurrentSong.Attributes.Artwork.DefaultUrl}" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Title"/>
+            <Label Grid.Column="1" Text="{Binding CurrentSong.Attributes.Name}" />
+            <Label Grid.Column="0" Grid.Row="1" Text="Artist" />
+            <Label Grid.Column="1" Grid.Row="1" Text="{Binding CurrentSong.Attributes.ArtistName}" />
+            <Label Grid.Column="1" Grid.Row="2" Text="Album" />
+            <Label Grid.Column="1" Grid.Row="2" Text="{Binding CurrentSong.Attributes.Name}" />
+        </Grid>
+        <Button Text="{Binding PlaybackButtonText}" IsEnabled="{Binding PlayBackButtonEnabled}"/>
+    </StackLayout>
+</ContentPage>

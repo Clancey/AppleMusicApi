@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:RefreshingContentPage xmlns:local="clr-namespace:AppleMusicSample.Pages;" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    Title="{Binding Album.Attributes.Name}" x:Class="AppleMusicSample.Pages.AlbumDetailsPage">
+	<ListView x:Name="ListView" ItemsSource="{Binding Album.Relationships.Tracks.Data}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsRefreshing}" Refreshing="Handle_Refreshing" ItemSelected="Handle_ItemSelected" >
+        <ListView.Header>
+            <Image Source="{Binding Attributes.Artwork.DefaultUrl}"/>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextCell Text="{Binding Attributes.Name}" Detail="{Binding Attributes.ArtistName}" />
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</local:RefreshingContentPage>
