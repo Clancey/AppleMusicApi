@@ -5,13 +5,6 @@ using System.Text;
 using System.IO;
 using System.Security.Cryptography;
 using System.Collections.Generic;
-using Org.BouncyCastle.Crypto.Parameters;
-using Org.BouncyCastle.Security;
-using Org.BouncyCastle.Crypto;
-using Org.BouncyCastle.Pkcs;
-using Org.BouncyCastle.Math;
-using Org.BouncyCastle.Asn1.X9;
-using Org.BouncyCastle.Asn1.Nist;
 namespace AppleMusic
 {
 	public static class AppleMusicKeysHelper
@@ -58,19 +51,19 @@ namespace AppleMusic
 		{
 			//This works on Windows only!
 			throw new NotImplementedException ();
-			//CngKey key = CngKey.Import(
-			//	Convert.FromBase64String(privateKey),
-			//	CngKeyBlobFormat.Pkcs8PrivateBlob);
+			CngKey key = CngKey.Import(
+				Convert.FromBase64String(privateKey),
+				CngKeyBlobFormat.Pkcs8PrivateBlob);
 
-			//using (ECDsaCng dsa = new ECDsaCng(key))
-			//{
-			//	dsa.HashAlgorithm = CngAlgorithm.Sha256;
-			//	var unsignedJwtData =
-			//		Encode(Encoding.UTF8.GetBytes(header)) + "." + Encode(Encoding.UTF8.GetBytes(payload));
-			//	var signature =
-			//		dsa.SignData(Encoding.UTF8.GetBytes(unsignedJwtData));
-			//	return unsignedJwtData + "." + Encode(signature);
-			//}
+			using (ECDsaCng dsa = new ECDsaCng(key))
+			{
+				dsa.HashAlgorithm = CngAlgorithm.Sha256;
+				var unsignedJwtData =
+					Encode(Encoding.UTF8.GetBytes(header)) + "." + Encode(Encoding.UTF8.GetBytes(payload));
+				var signature =
+					dsa.SignData(Encoding.UTF8.GetBytes(unsignedJwtData));
+				return unsignedJwtData + "." + Encode(signature);
+			}
 		}
 		public static long ToUnixTime (this DateTime date)
 		{
