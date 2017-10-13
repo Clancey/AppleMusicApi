@@ -42,11 +42,11 @@ namespace AppleMusic
 				if (capabilities.HasFlag (SKCloudServiceCapability.MusicCatalogSubscriptionEligible)) {
 					account.EligibleForSubscription = true;
 					var vc = new SKCloudServiceSetupViewController ();
-					var result = await vc.LoadAsync (new SKCloudServiceSetupOptions { Action = SKCloudServiceSetupAction.Subscribe });
+					var result = await vc.LoadAsync (new SKCloudServiceSetupOptions { Action = SKCloudServiceSetupAction.Subscribe, AffiliateToken = AffiliateToken});
 				}
 				
 				if (account.CanAddToICloudMusic || account.CanPlayMusic) {
-					var token = await cloudServiceController.RequestPersonalizationTokenAsync (account.DeveloperToken);
+					var token = await cloudServiceController.RequestUserTokenAsync (account.DeveloperToken);
 					account.UserToken = token;
 				}
 				return account;
